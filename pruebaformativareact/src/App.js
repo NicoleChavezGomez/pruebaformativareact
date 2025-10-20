@@ -6,6 +6,7 @@ import Banner from './components/banner';
 import Informacion from './components/informacion';
 import CardsProductos from './components/cards';
 import CotizadorComponentes from './components/cotizador';
+import Footer from './components/footer';
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,7 @@ function App() {
        <Banner />
        <Informacion />
        <CotizadorComponentes />
+       <Footer />
       <header >
        
       </header>
