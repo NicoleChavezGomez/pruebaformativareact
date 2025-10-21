@@ -118,7 +118,7 @@ function CotizadorComponentes() {
                         setCantidadRAM(0);
                         setGarantia(0);
                         setDescuento(0);
-                     }}>Limpiar </Button>
+                     }}>Limpiar <i class="fa-solid fa-trash"></i> </Button>
                      
                     </div>
 

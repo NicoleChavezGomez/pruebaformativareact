@@ -4,8 +4,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 function Footer() {
 return(
 
-    <div className="container row  mt-5" style={{width: '100%'}}>
-        <div className="col-lg-12 text-center bg-success">
+    <div className="mt-5" style={{width: '100%', margin: 0, padding: 0}}>
+        <div className="text-center" style={{backgroundColor: '#ffb3ff', padding: '20px 0'}}>
 
             <p claseName="mt-3 text-white ">Whatsapp: +5612345678 - info@recursoshumanos.cl <i class="fa-brands fa-whatsapp"></i></p>
             <p claseName="mt-3 text-white ">sede Central: Av. Principal 456, Santiago <i class="fa-solid fa-location-dot"></i></p>

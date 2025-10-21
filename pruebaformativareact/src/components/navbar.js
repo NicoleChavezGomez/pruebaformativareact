@@ -3,7 +3,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 
 function NavbarComponent() {
   return (
-    <Navbar bg="primary" variant="light" expand="lg" sticky="top">
+    <Navbar expand="lg" sticky="top" style={{ backgroundColor: '#ffb3d9' }} data-bs-theme="light">
       <Container>
         <Navbar.Brand href="#inicio">
           <i className="bi bi-pc-display-horizontal me-2"></i>
