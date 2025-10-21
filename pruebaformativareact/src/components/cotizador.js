@@ -1,37 +1,53 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+
 
 function CotizadorComponentes() {
     // estados para los valores
-    const [subtotal, setSubtotal] = useState(0);
-    const [iva, setIva] = useState(0);
-    const [descuento, setDescuento] = useState('-50000');
-    const [total, setTotal] = useState(0);
-    const [productos, setProductos] = useState([]);
-    const [precioCPU, setPrecioCPU] = useState(150000);
-    const [precioGPU, setPrecioGPU] = useState(300000);
-    const [cantidadRAM, setCantidadRAM] = useState(2);
-    const [garantia, setGarantia] = useState('1');
+   
+    const [precioCPU, setPrecioCPU] = useState(0);
+    const [precioGPU, setPrecioGPU] = useState(0);
+    const [precioRam, setPrecioRam] = useState(0)
+    const [cantidadRAM, setCantidadRAM] = useState(1);
+    const [garantia, setGarantia] = useState(0); 
+    const [descuento, setDescuento] = useState(0);
+    
+
+
+    const preciosGarantia = {
+        0:0,
+        1:35000,
+        2:40000,
+        3:45000,
+        4:50000,
+        5:60000
+    };
+
+    const getPrecioGarantia = (años) => {
+        return preciosGarantia [años] || 0;
+      }
+
 
     // funcion para calcular los valores
-    const calcularValores = () => {
-        const cpu = precioCPU === '' ? 0 : precioCPU;
-        const gpu = precioGPU === '' ? 0 : precioGPU;
-        const ram = cantidadRAM === '' ? 0 : cantidadRAM;
-        const desc = descuento === '' ? 0 : descuento;
+
+  const precioCPUNum = Number(precioCPU) || 0;
+  const precioGPUNum = Number (precioGPU) || 0;
+  const precioRamNum = Number (precioRam) || 0;
+  const cantidadRAMNum = Number (cantidadRAM) || 0;
+  const precioGarantiaSelect = getPrecioGarantia ( garantia);
+  const descuentoNum = Number (descuento) || 0;
+
+  
+
+  const subtotal = Math.round(precioCPUNum + precioGPUNum + (precioRamNum * cantidadRAMNum) + precioGarantiaSelect) ;
+  const iva = Math.round(subtotal * 0.19);
+  const totalConIva = Math.round(subtotal + iva );
+  const total = Math.round(totalConIva - descuentoNum) ;
+
+
+
         
-        const subtotalCalculado = cpu + gpu + (ram * 100000);
-        const IvaCalculado = subtotalCalculado * 0.19;
-        const totalCalculado = subtotalCalculado + IvaCalculado + desc;
-
-
-
-        setSubtotal(subtotalCalculado);
-        setIva(IvaCalculado);
-        setTotal(totalCalculado);
-
-        
-    }
+    
 
     return (
 
@@ -49,21 +65,39 @@ function CotizadorComponentes() {
                         
                     <div className="mb-3">
                         <label className="form-label">Precio de la CPU</label>
-                        <input type="text" className="form-control" value={precioCPU} onChange={e => setPrecioCPU(e.target.value === '' ? '' : Number(e.target.value))} />
+                        <input type="text" className="form-control" value={precioCPU} onChange={e => {
+                            setPrecioCPU(e.target.value === '' ? '' : Number(e.target.value));
+                            
+                        }} />
                     </div>
                     
                     <div className="mb-3">
                         <label className="form-label">Precio GPU (por módulo)</label>
-                        <input type="text" className="form-control" value={precioGPU} onChange={e => setPrecioGPU(e.target.value === '' ? '' : Number(e.target.value))} />
+                        <input type="text" className="form-control" value={precioGPU} onChange={e => {
+                            setPrecioGPU(e.target.value === '' ? '' : Number(e.target.value));
+                          
+                        }} />
+                    </div>
+                    
+                    <div className="mb-3">
+                        <label className="form-label">Precio RAM (por módulo)</label>
+                        <input type="text" className="form-control" value={precioRam} onChange={e => {
+                            setPrecioRam(e.target.value === '' ? '' : Number(e.target.value));
+                           
+                        }} />
                     </div>
                     
                     <div className="mb-3">
                         <label className="form-label">Cantidad modulos de RAM</label>
-                        <input type="text" className="form-control" value={cantidadRAM} onChange={e => setCantidadRAM(e.target.value === '' ? '' : Number(e.target.value))} />
+                        <input type="text" className="form-control" value={cantidadRAM} onChange={e => {
+                            setCantidadRAM(e.target.value === '' ? '' : Number(e.target.value));
+                            
+                        }} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Garantia</label>
                         <select className="form-control" value={garantia} onChange={e => setGarantia(e.target.value)}>
+                        <option value="0"> Sin garantia </option>
                             <option value="1">1 año</option>
                             <option value="2">2 años</option>
                             <option value="3">3 años</option>
@@ -72,21 +106,21 @@ function CotizadorComponentes() {
 
                         </select>
                         <div className="mb-3">
-                            <label className="form-label"> Descuento</label>
-                            <input className="form-control" type="text" value={descuento} onChange={e => {
-                                const value = e.target.value;
-                                if (value === '' || value === '-') {
-                                    setDescuento(value);
-                                } else if (!isNaN(Number(value))) {
-                                    setDescuento(value);
-                                }
-                            }}></input>
-                            <button className="btn btn-primary" onClick={calcularValores} >Calcular  <i class="fa-solid fa-calculator"></i></button>
-                           
-
+                        <label className="form-label">Descuento</label>
+                        <input type="text" className="form-control" value={descuento} onChange={e => {
+                            setDescuento(e.target.value === '' ? '' : Number(e.target.value));
                           
-
-                        </div>
+                        }} />
+                     <Button variant="info" onClick={()=>{
+                        setPrecioCPU(0);
+                        setPrecioGPU(0);
+                        setPrecioRam(0);
+                        setCantidadRAM(0);
+                        setGarantia(0);
+                        setDescuento(0);
+                     }}>Limpiar </Button>
+                     
+                    </div>
 
 
                     </div>
@@ -121,15 +155,15 @@ function CotizadorComponentes() {
                                 <tr>
                                     <td>3</td>
                                     <td>Descuento</td>
-                                    <td>${descuento === '' ? '0' : Number(descuento).toLocaleString()}</td>
+                                    <td> -${(descuento).toLocaleString()}</td>
 
 
 
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td colSpan={2}>Total</td>
-
+                                    <td>Total</td>
+                                    <td>${total.toLocaleString()}</td>
                                 </tr>
                             </tbody>
                         </Table>
