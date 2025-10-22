@@ -51,9 +51,9 @@ function CotizadorComponentes() {
 
     return (
 
-        <div>
+        <div className="container my-5">
             <div className="row">
-                <div className="col-lg-12 text-center bg-secondary text-white p-3">
+                <div className="col-lg-12 text-center bg-dark text-white p-3">
                     <h2>DEMO:</h2>
                     <h4>Cotizador de Componentes</h4>
                 </div>
@@ -111,14 +111,14 @@ function CotizadorComponentes() {
                             setDescuento(e.target.value === '' ? '' : Number(e.target.value));
                           
                         }} />
-                     <Button variant="info" onClick={()=>{
+                     <Button variant="dark" className="mt-3" onClick={()=>{
                         setPrecioCPU(0);
                         setPrecioGPU(0);
                         setPrecioRam(0);
                         setCantidadRAM(0);
                         setGarantia(0);
                         setDescuento(0);
-                     }}>Limpiar <i class="fa-solid fa-trash"></i> </Button>
+                     }}><i class="fa-solid fa-trash me-2"></i>Limpiar  </Button>
                      
                     </div>
 

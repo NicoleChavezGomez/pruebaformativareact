@@ -7,7 +7,7 @@ function Informacion() {
     return (
         //seccion empresa 
         <section id="caracteristicas">
-            <Container>
+            <Container className="container my-5">
                 <hr />
                 <Row className="my-3">
                     <Col lg={6}>
